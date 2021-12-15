@@ -4,6 +4,7 @@ import {
   Button,
   Container,
   FormControl,
+  Grid,
   TextField,
   Typography,
 } from "@mui/material";
@@ -45,48 +46,61 @@ function Login() {
 
   return (
     <Container maxWidth={"xs"}>
-      <Typography
-        variant="h6"
-        color="textSecondary"
-        component="h2"
-        gutterBottom
+      <Grid
+        container
+        style={{ height: window.innerHeight - 150 }}
+        alignItems={"center"}
+        justify={"center"}
       >
-        Login
-      </Typography>
-
-      <form noValidate autoComplete={"off"} onSubmit={handleSubmit}>
-        <TextField
-          onChange={(e) => setLogin(e.target.value)}
-          className={classes.field}
-          label={"E-mail"}
-          variant={"outlined"}
-          color={"secondary"}
-          fullWidth
-          required
-          error={loginErr}
-        />
-        <TextField
-          onChange={(e) => setPassword(e.target.value)}
-          className={classes.field}
-          label={"Password"}
-          variant={"outlined"}
-          color={"secondary"}
-          fullWidth
-          required
-          error={passwordErr}
-        />
-        <FormControl fullWidth>
-          <Button
-            type={"submit"}
-            color={"primary"}
-            variant={"contained"}
-            endIcon={<KeyboardArrowRight />}
-            fullWidth
+        <Grid
+          style={{ width: window.innerWidth }}
+          alignItems={"center"}
+          direction={"column"}
+        >
+          <Typography
+            variant="h6"
+            color="textSecondary"
+            component="h2"
+            gutterBottom
           >
-            Submit
-          </Button>
-        </FormControl>
-      </form>
+            Login
+          </Typography>
+
+          <form noValidate autoComplete={"off"} onSubmit={handleSubmit}>
+            <TextField
+              onChange={(e) => setLogin(e.target.value)}
+              className={classes.field}
+              label={"E-mail"}
+              variant={"outlined"}
+              color={"secondary"}
+              fullWidth
+              required
+              error={loginErr}
+            />
+            <TextField
+              onChange={(e) => setPassword(e.target.value)}
+              className={classes.field}
+              label={"Password"}
+              variant={"outlined"}
+              color={"secondary"}
+              fullWidth
+              required
+              error={passwordErr}
+            />
+            <FormControl fullWidth>
+              <Button
+                type={"submit"}
+                color={"primary"}
+                variant={"contained"}
+                endIcon={<KeyboardArrowRight />}
+                fullWidth
+              >
+                Submit
+              </Button>
+            </FormControl>
+          </form>
+        </Grid>
+      </Grid>
     </Container>
   );
 }

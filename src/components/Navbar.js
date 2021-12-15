@@ -31,11 +31,6 @@ const useStyles = makeStyles((theme) => {
     title: {
       padding: theme.spacing(2),
     },
-    active: {
-      "&&": {
-        background: "#f4f4f4",
-      },
-    },
   };
 });
 
