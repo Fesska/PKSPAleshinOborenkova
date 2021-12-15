@@ -1,0 +1,4 @@
+export const LOGIN_ROUTE = "/login";
+export const SCHEDULE_ROUTE = "/schedule";
+export const LECTURERS_ROUTE = "/lecturers";
+export const SESSION_ROUTE = "/session";
