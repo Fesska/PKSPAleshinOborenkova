@@ -17,6 +17,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+import { useHistory, useLocation } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -31,11 +32,18 @@ const useStyles = makeStyles((theme) => {
     title: {
       padding: theme.spacing(2),
     },
+    active: {
+      "&&": {
+        background: "#e5e5e5",
+      },
+    },
   };
 });
 
 function Navbar() {
   const classes = useStyles();
+  const history = useHistory();
+  const location = useLocation();
 
   const menuItems = [
     {
@@ -68,7 +76,14 @@ function Navbar() {
         </Typography>
         <List>
           {menuItems.map((item) => (
-            <ListItem button key={item.text}>
+            <ListItem
+              button
+              key={item.text}
+              onClick={() => history.push(item.path)}
+              className={
+                location.pathname === item.path ? classes.active : null
+              }
+            >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItem>

@@ -1,8 +1,9 @@
 // Домашняя страница
 import React from "react";
+import Schedule from "../components/Schedule";
 
 function Home() {
-  return <div>Home</div>;
+  return <Schedule />;
 }
 
 export default Home;
