@@ -4,8 +4,13 @@ import { makeStyles } from "@mui/styles";
 import CollectionsBookmarkIcon from "@mui/icons-material/CollectionsBookmark";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import PeopleIcon from "@mui/icons-material/People";
+import EditIcon from "@mui/icons-material/Edit";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import {
+  ADD_ROUTE,
   LECTURERS_ROUTE,
+  REFACTOR_ROUTE,
+  rights,
   SCHEDULE_ROUTE,
   SESSION_ROUTE,
 } from "../utils/consts";
@@ -45,23 +50,55 @@ function Navbar() {
   const history = useHistory();
   const location = useLocation();
 
-  const menuItems = [
-    {
-      text: "Расписание",
-      icon: <VisibilityIcon color={"primary"} />,
-      path: SCHEDULE_ROUTE,
-    },
-    {
-      text: "Сессия",
-      icon: <CollectionsBookmarkIcon color={"primary"} />,
-      path: SESSION_ROUTE,
-    },
-    {
-      text: "Преподаватели",
-      icon: <PeopleIcon color={"primary"} />,
-      path: LECTURERS_ROUTE,
-    },
-  ];
+  let menuItems;
+
+  if (rights) {
+    menuItems = [
+      {
+        text: "Расписание",
+        icon: <VisibilityIcon color={"primary"} />,
+        path: SCHEDULE_ROUTE,
+      },
+      {
+        text: "Сессия",
+        icon: <CollectionsBookmarkIcon color={"primary"} />,
+        path: SESSION_ROUTE,
+      },
+      {
+        text: "Преподаватели",
+        icon: <PeopleIcon color={"primary"} />,
+        path: LECTURERS_ROUTE,
+      },
+      {
+        text: "Изменить",
+        icon: <EditIcon color={"primary"} />,
+        path: REFACTOR_ROUTE,
+      },
+      {
+        text: "Добавить",
+        icon: <AddCircleIcon color={"warning"} />,
+        path: ADD_ROUTE,
+      },
+    ];
+  } else {
+    menuItems = [
+      {
+        text: "Расписание",
+        icon: <VisibilityIcon color={"primary"} />,
+        path: SCHEDULE_ROUTE,
+      },
+      {
+        text: "Сессия",
+        icon: <CollectionsBookmarkIcon color={"primary"} />,
+        path: SESSION_ROUTE,
+      },
+      {
+        text: "Преподаватели",
+        icon: <PeopleIcon color={"primary"} />,
+        path: LECTURERS_ROUTE,
+      },
+    ];
+  }
 
   return (
     <Drawer

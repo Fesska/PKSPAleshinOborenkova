@@ -2,12 +2,10 @@
 
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import { LOGIN_ROUTE, SCHEDULE_ROUTE } from "../utils/consts";
+import { LOGIN_ROUTE, rights, SCHEDULE_ROUTE, user } from "../utils/consts";
 import { privateRoutes, protectedRoutes, publicRoutes } from "./routes";
 
 function AppRouter() {
-  const user = true;
-  const rights = false;
   return user ? (
     rights ? (
       <Switch>
