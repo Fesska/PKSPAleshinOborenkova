@@ -6,4 +6,4 @@ export const ADD_ROUTE = "/add";
 export const REFACTOR_ROUTE = "/refactor";
 
 export const user = true;
-export const rights = false;
+export const rights = true;

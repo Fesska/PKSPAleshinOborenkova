@@ -76,7 +76,7 @@ function Navbar() {
       },
       {
         text: "Добавить",
-        icon: <AddCircleIcon color={"warning"} />,
+        icon: <AddCircleIcon color={"primary"} />,
         path: ADD_ROUTE,
       },
     ];

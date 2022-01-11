@@ -11,6 +11,7 @@ import Login from "../pages/Login";
 import Home from "../pages/Home";
 import Session from "../pages/Session";
 import Lecturers from "../pages/Lecturers";
+import AddPage from "../pages/AddPage";
 
 export const publicRoutes = [
   {
@@ -49,7 +50,7 @@ export const protectedRoutes = [
   },
   {
     path: ADD_ROUTE,
-    Component: Home,
+    Component: AddPage,
   },
   {
     path: REFACTOR_ROUTE,
