@@ -1,5 +1,5 @@
 //Страница логина
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Button,
   Container,
@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import { KeyboardArrowRight } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { context } from "../index";
 
 const useStyles = makeStyles({
   field: {
@@ -22,6 +24,7 @@ const useStyles = makeStyles({
 });
 
 function Login() {
+  const { auth } = useContext(context);
   const classes = useStyles();
 
   const [login, setLogin] = useState("");
@@ -41,7 +44,17 @@ function Login() {
       setPasswordErr(true);
     }
 
-    console.log(login, password);
+    signInWithEmailAndPassword(auth, login, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+
+        console.log(login, password);
+      })
+      .catch((error) => {
+        console.log(error.code);
+        console.log(error.message);
+      });
   };
 
   return (
@@ -55,7 +68,7 @@ function Login() {
         <Grid
           style={{ width: window.innerWidth }}
           alignItems={"center"}
-          direction={"column"}
+          /*direction={"column"}*/
         >
           <Typography
             variant="h6"

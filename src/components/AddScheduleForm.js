@@ -131,6 +131,7 @@ function AddScheduleForm() {
             value={type}
             label="Type"
             onChange={(e) => setType(e.target.value)}
+            error={typeErr}
           >
             <MenuItem value={"lec"}>Лекция</MenuItem>
             <MenuItem value={"pz"}>Практика</MenuItem>
@@ -146,6 +147,7 @@ function AddScheduleForm() {
             value={time}
             label="Time"
             onChange={(e) => setTime(e.target.value)}
+            error={timeErr}
           >
             <MenuItem value={"09:30 - 11:05"}>09:30 - 11:05</MenuItem>
             <MenuItem value={"11:15 - 12:50"}>11:15 - 12:50</MenuItem>
@@ -164,6 +166,7 @@ function AddScheduleForm() {
             value={date}
             label="Day"
             onChange={(e) => setDate(e.target.value)}
+            error={dateErr}
           >
             <MenuItem value={"mon"}>Понедельник</MenuItem>
             <MenuItem value={"tue"}>Вторник</MenuItem>

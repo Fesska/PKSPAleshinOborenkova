@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import ScheduleCard from "./ScheduleCard";
 
 function Schedule() {
@@ -12,6 +12,9 @@ function Schedule() {
       wrap={"nowrap"}
     >
       <Container>
+        <Typography align={"center"} variant={"h5"}>
+          Понедельник
+        </Typography>
         <ScheduleCard />
         <ScheduleCard />
         <ScheduleCard />
@@ -19,6 +22,9 @@ function Schedule() {
         <ScheduleCard />
       </Container>
       <Container>
+        <Typography align={"center"} variant={"h5"}>
+          Вторник
+        </Typography>
         <ScheduleCard />
         <ScheduleCard />
         <ScheduleCard />
@@ -26,6 +32,9 @@ function Schedule() {
         <ScheduleCard />
       </Container>
       <Container>
+        <Typography align={"center"} variant={"h5"}>
+          Среда
+        </Typography>
         <ScheduleCard />
         <ScheduleCard />
         <ScheduleCard />
@@ -33,6 +42,9 @@ function Schedule() {
         <ScheduleCard />
       </Container>
       <Container>
+        <Typography align={"center"} variant={"h5"}>
+          Четверг
+        </Typography>
         <ScheduleCard />
         <ScheduleCard />
         <ScheduleCard />
@@ -40,6 +52,9 @@ function Schedule() {
         <ScheduleCard />
       </Container>
       <Container>
+        <Typography align={"center"} variant={"h5"}>
+          Пятница
+        </Typography>
         <ScheduleCard />
         <ScheduleCard />
         <ScheduleCard />

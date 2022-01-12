@@ -1,12 +1,19 @@
 // Все маршруты, по которым можно переходить
 
-import React from "react";
+import React, { useContext } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import { LOGIN_ROUTE, rights, SCHEDULE_ROUTE, user } from "../utils/consts";
+import { LOGIN_ROUTE, SCHEDULE_ROUTE } from "../utils/consts";
 import { privateRoutes, protectedRoutes, publicRoutes } from "./routes";
+import { context } from "../index";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function AppRouter() {
-  return user ? (
+  const { auth } = useContext(context);
+  const [userAuth] = useAuthState(auth);
+
+  const rights = false;
+
+  return userAuth ? (
     rights ? (
       <Switch>
         {protectedRoutes.map(({ path, Component }) => (

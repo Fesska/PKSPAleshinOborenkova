@@ -3,10 +3,10 @@ import { Card, Container, Divider, Grid, Typography } from "@mui/material";
 
 function ScheduleCard() {
   return (
-    <Container style={{ marginTop: `10px` }} fixed={"true"}>
+    <Container style={{ marginTop: `10px` }} fixed={true}>
       <Card
-        square={"false"}
-        style={{ marginTop: `5px`, backgroundColor: `#e5e5e5`, width: 400 }}
+        square={false}
+        style={{ marginTop: `5px`, backgroundColor: `#e5e5e5`, width: 300 }}
       >
         <Grid container columns={2} marginTop={1} wrap={"nowrap"}>
           <Grid flex item marginRight={2}>
@@ -25,7 +25,7 @@ function ScheduleCard() {
           </Grid>
           <Divider orientation={"vertical"} flexItem />
           <Grid flex item marginRight={1} marginLeft={1}>
-            <Typography align={"center"} variant={"h5"}>
+            <Typography align={"center"} variant={"body1"}>
               Проектирование клиент-серверных приложений
             </Typography>
             <Typography align={"center"} variant={"body2"}>

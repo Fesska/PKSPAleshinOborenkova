@@ -1,5 +1,5 @@
 //Навигационная панель
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@mui/styles";
 import CollectionsBookmarkIcon from "@mui/icons-material/CollectionsBookmark";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -10,11 +10,11 @@ import {
   ADD_ROUTE,
   LECTURERS_ROUTE,
   REFACTOR_ROUTE,
-  rights,
   SCHEDULE_ROUTE,
   SESSION_ROUTE,
 } from "../utils/consts";
 import {
+  Button,
   Drawer,
   List,
   ListItem,
@@ -23,6 +23,8 @@ import {
   Typography,
 } from "@mui/material";
 import { useHistory, useLocation } from "react-router-dom";
+import { KeyboardArrowRight } from "@mui/icons-material";
+import { context } from "../index";
 
 const drawerWidth = 240;
 
@@ -46,11 +48,13 @@ const useStyles = makeStyles((theme) => {
 });
 
 function Navbar() {
+  const { auth } = useContext(context);
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
 
   let menuItems;
+  const rights = false;
 
   if (rights) {
     menuItems = [
@@ -126,6 +130,16 @@ function Navbar() {
             </ListItem>
           ))}
         </List>
+        <Button
+          type={"submit"}
+          color={"primary"}
+          variant={"contained"}
+          endIcon={<KeyboardArrowRight />}
+          onClick={() => auth.signOut()}
+          fullWidth
+        >
+          Выйти
+        </Button>
       </div>
     </Drawer>
   );
