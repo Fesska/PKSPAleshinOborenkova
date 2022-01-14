@@ -1,11 +1,11 @@
-import React, { createContext } from "react";
+import React, { createContext, useState } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ThemeContext } from "@emotion/react";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAMdEv10zEIDCzFdUjj71exFT1BwOeZgtg",
@@ -21,17 +21,25 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore();
 
-export const context = createContext({ auth });
+const context = createContext();
 
-ReactDOM.render(
-  <React.StrictMode>
-    <ThemeContext.Provider value={{ auth }}>
-      <App />
-    </ThemeContext.Provider>
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+export default context;
+
+function Main() {
+  const [userRights, setUserRights] = useState(false);
+
+  return (
+    <React.StrictMode>
+      <context.Provider value={{ auth, db, userRights, setUserRights }}>
+        <App />
+      </context.Provider>
+    </React.StrictMode>
+  );
+}
+
+ReactDOM.render(<Main />, document.getElementById("root"));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

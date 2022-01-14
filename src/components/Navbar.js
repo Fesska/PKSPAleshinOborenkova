@@ -24,7 +24,7 @@ import {
 } from "@mui/material";
 import { useHistory, useLocation } from "react-router-dom";
 import { KeyboardArrowRight } from "@mui/icons-material";
-import { context } from "../index";
+import context from "../index";
 
 const drawerWidth = 240;
 
@@ -49,14 +49,14 @@ const useStyles = makeStyles((theme) => {
 
 function Navbar() {
   const { auth } = useContext(context);
+  const { userRights, setUserRights } = useContext(context);
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
 
   let menuItems;
-  const rights = false;
 
-  if (rights) {
+  if (userRights) {
     menuItems = [
       {
         text: "Расписание",
@@ -135,7 +135,10 @@ function Navbar() {
           color={"primary"}
           variant={"contained"}
           endIcon={<KeyboardArrowRight />}
-          onClick={() => auth.signOut()}
+          onClick={() => {
+            auth.signOut();
+            setUserRights(false);
+          }}
           fullWidth
         >
           Выйти

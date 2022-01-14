@@ -11,7 +11,8 @@ import {
 import { KeyboardArrowRight } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { context } from "../index";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import context from "../index";
 
 const useStyles = makeStyles({
   field: {
@@ -25,6 +26,11 @@ const useStyles = makeStyles({
 
 function Login() {
   const { auth } = useContext(context);
+  const { db } = useContext(context);
+  const { setUserRights } = useContext(context);
+
+  const usersCollectionRef = collection(db, "users");
+
   const classes = useStyles();
 
   const [login, setLogin] = useState("");
@@ -49,7 +55,22 @@ function Login() {
         // Signed in
         const user = userCredential.user;
 
-        console.log(login, password);
+        // Запрашиваем пользователя из коллекции users по совпадению поля UID
+        const q = query(
+          usersCollectionRef,
+          where("UID", "==", auth.currentUser.uid)
+        );
+
+        // Запрашиваем права пользователя
+        const getRights = async () => {
+          const data = await getDocs(q);
+          const userRef = data.docs.pop().data();
+          const rights = userRef.rights;
+
+          if (rights === "admin") setUserRights(true);
+        };
+
+        getRights();
       })
       .catch((error) => {
         console.log(error.code);

@@ -4,17 +4,16 @@ import React, { useContext } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { LOGIN_ROUTE, SCHEDULE_ROUTE } from "../utils/consts";
 import { privateRoutes, protectedRoutes, publicRoutes } from "./routes";
-import { context } from "../index";
 import { useAuthState } from "react-firebase-hooks/auth";
+import context from "../index";
 
 function AppRouter() {
   const { auth } = useContext(context);
+  const { userRights } = useContext(context);
   const [userAuth] = useAuthState(auth);
 
-  const rights = false;
-
   return userAuth ? (
-    rights ? (
+    userRights ? (
       <Switch>
         {protectedRoutes.map(({ path, Component }) => (
           <Route key={path} path={path} component={Component} exact={true} />
