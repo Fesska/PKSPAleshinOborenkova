@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Container, Divider, Grid, Typography } from "@mui/material";
 
-function ScheduleCard() {
+function ScheduleCard({ lecture }) {
   return (
     <Container style={{ marginTop: `10px` }} fixed={true}>
       <Card
@@ -17,25 +17,25 @@ function ScheduleCard() {
               marginLeft={2}
               variant={"body2"}
             >
-              02:28
+              {lecture.timeBegining}
             </Typography>
             <Typography align={"left"} marginLeft={2} variant={"body2"}>
-              14:88
+              {lecture.timeEnd}
             </Typography>
           </Grid>
           <Divider orientation={"vertical"} flexItem />
           <Grid flex item marginRight={1} marginLeft={1}>
             <Typography align={"center"} variant={"body1"}>
-              Проектирование клиент-серверных приложений
+              {lecture.subject}
             </Typography>
             <Typography align={"center"} variant={"body2"}>
-              (Лекция)
+              {lecture.type}
             </Typography>
             <Typography align={"center"} variant={"body2"} color={"#77b546"}>
-              Дистанционно
+              {lecture.format}
             </Typography>
             <Typography align={"center"} variant={"body1"}>
-              Городничев М. Г.
+              {lecture.lecturer}
             </Typography>
           </Grid>
         </Grid>

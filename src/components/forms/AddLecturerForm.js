@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Container, FormControl, TextField } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { KeyboardArrowRight } from "@mui/icons-material";
+import context from "../../index";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 
 const useStyles = makeStyles({
   field: {
@@ -16,6 +18,8 @@ const useStyles = makeStyles({
 function AddLecturerForm() {
   const classes = useStyles();
 
+  const [users, setUsers] = useState();
+
   const [lecturer, setLecturer] = useState("");
   const [subj, setSubj] = useState("");
   const [type, setType] = useState("");
@@ -23,6 +27,9 @@ function AddLecturerForm() {
   const [lecturerErr, setLecturerErr] = useState(false);
   const [subjErr, setSubjErr] = useState(false);
   const [typeErr, setTypeErr] = useState(false);
+
+  const { db, auth } = useContext(context);
+  const usersCollectionRef = collection(db, "users");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,7 +48,34 @@ function AddLecturerForm() {
       setTypeErr(true);
     }
 
-    console.log(lecturer, subj, type);
+    if (lecturer && subj && type) {
+      const getData = async () => {
+        const q = query(
+          usersCollectionRef,
+          where("UID", "==", auth.currentUser.uid)
+        );
+        const data = await getDocs(usersCollectionRef);
+
+        setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+
+        const user = await getDocs(q);
+        const userRef = user.docs.pop().data();
+        const group = userRef.group;
+
+        const lecturerCollectionRef = collection(
+          db,
+          "groups/" + group + "/Lecturers"
+        );
+
+        await addDoc(lecturerCollectionRef, {
+          name: lecturer,
+          subjType: type,
+          subject: subj,
+        });
+        console.log(lecturer, subj, type);
+      };
+      getData();
+    }
   };
 
   return (

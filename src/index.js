@@ -1,11 +1,18 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAMdEv10zEIDCzFdUjj71exFT1BwOeZgtg",
@@ -29,6 +36,30 @@ export default context;
 
 function Main() {
   const [userRights, setUserRights] = useState(false);
+  const [userAuth] = useAuthState(auth);
+
+  // Запрашиваем права пользователя
+  const getRights = async () => {
+    if (userAuth) {
+      const usersCollectionRef = collection(db, "users");
+
+      // Запрашиваем пользователя из коллекции users по совпадению поля UID
+      const q = query(
+        usersCollectionRef,
+        where("UID", "==", auth.currentUser.uid)
+      );
+
+      const data = await getDocs(q);
+      const userRef = data.docs.pop().data();
+      const rights = userRef.rights;
+
+      if (rights === "admin") setUserRights(true);
+    }
+  };
+
+  useEffect(() => {
+    getRights();
+  });
 
   return (
     <React.StrictMode>
