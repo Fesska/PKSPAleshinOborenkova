@@ -5,7 +5,6 @@ import {
   SESSION_ROUTE,
   LECTURERS_ROUTE,
   ADD_ROUTE,
-  REFACTOR_ROUTE,
 } from "../utils/consts";
 import Login from "../pages/Login";
 import Home from "../pages/Home";
@@ -51,9 +50,5 @@ export const protectedRoutes = [
   {
     path: ADD_ROUTE,
     Component: AddPage,
-  },
-  {
-    path: REFACTOR_ROUTE,
-    Component: Home,
   },
 ];

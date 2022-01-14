@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Container, Divider, Grid, Typography } from "@mui/material";
 
-function ScheduleCard({ lecture }) {
+function ScheduleCard({ lecture, handleUpdate }) {
   return (
     <Container style={{ marginTop: `10px` }} fixed={true}>
       <Card

@@ -4,12 +4,10 @@ import { makeStyles } from "@mui/styles";
 import CollectionsBookmarkIcon from "@mui/icons-material/CollectionsBookmark";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import PeopleIcon from "@mui/icons-material/People";
-import EditIcon from "@mui/icons-material/Edit";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import {
   ADD_ROUTE,
   LECTURERS_ROUTE,
-  REFACTOR_ROUTE,
   SCHEDULE_ROUTE,
   SESSION_ROUTE,
 } from "../utils/consts";
@@ -72,11 +70,6 @@ function Navbar() {
         text: "Преподаватели",
         icon: <PeopleIcon color={"primary"} />,
         path: LECTURERS_ROUTE,
-      },
-      {
-        text: "Изменить",
-        icon: <EditIcon color={"primary"} />,
-        path: REFACTOR_ROUTE,
       },
       {
         text: "Добавить",

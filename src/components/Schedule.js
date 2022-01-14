@@ -37,6 +37,8 @@ function Schedule() {
   const usersCollectionRef = collection(db, "users");
   const q = query(usersCollectionRef, where("UID", "==", auth.currentUser.uid));
 
+  const handleUpdate = async (id) => {};
+
   useEffect(() => {
     if (userAuth) {
       const getSchedule = async () => {
@@ -213,7 +215,7 @@ function Schedule() {
           })
           .map((lecture) => (
             <div key={lecture.id}>
-              <ScheduleCard lecture={lecture} />
+              <ScheduleCard lecture={lecture} handleUpdate={handleUpdate} />
             </div>
           ))}
       </Container>
@@ -228,7 +230,7 @@ function Schedule() {
           })
           .map((lecture) => (
             <div key={lecture.id}>
-              <ScheduleCard lecture={lecture} />
+              <ScheduleCard lecture={lecture} handleUpdate={handleUpdate} />
             </div>
           ))}
       </Container>
@@ -243,7 +245,7 @@ function Schedule() {
           })
           .map((lecture) => (
             <div key={lecture.id}>
-              <ScheduleCard lecture={lecture} />
+              <ScheduleCard lecture={lecture} handleUpdate={handleUpdate} />
             </div>
           ))}
       </Container>
@@ -258,7 +260,7 @@ function Schedule() {
           })
           .map((lecture) => (
             <div key={lecture.id}>
-              <ScheduleCard lecture={lecture} />
+              <ScheduleCard lecture={lecture} handleUpdate={handleUpdate} />
             </div>
           ))}
       </Container>
@@ -273,7 +275,7 @@ function Schedule() {
           })
           .map((lecture) => (
             <div key={lecture.id}>
-              <ScheduleCard lecture={lecture} />
+              <ScheduleCard lecture={lecture} handleUpdate={handleUpdate} />
             </div>
           ))}
       </Container>
