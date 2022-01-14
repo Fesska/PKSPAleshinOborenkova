@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
-import AddScheduleForm from "../components/AddScheduleForm";
+import AddScheduleForm from "../components/forms/AddScheduleForm";
 import { makeStyles } from "@mui/styles";
-import AddLecturerForm from "../components/AddLecturerForm";
-import AddSessionForm from "../components/AddSessionForm";
+import AddLecturerForm from "../components/forms/AddLecturerForm";
+import AddSessionForm from "../components/forms/AddSessionForm";
 
 const useStyles = makeStyles((theme) => ({
   control: {

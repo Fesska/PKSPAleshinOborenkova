@@ -1,29 +1,39 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Container, Grid } from "@mui/material";
-import LecturerCard from "../components/LecturerCard";
-import { collection, getDocs } from "firebase/firestore";
-import { KeyboardArrowRight } from "@mui/icons-material";
+import { Container, Grid } from "@mui/material";
+import LecturerCard from "../components/cards/LecturerCard";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import context from "../index";
 
 function Lecturers() {
-  const { db } = useContext(context);
+  const { db, auth } = useContext(context);
 
   const [users, setUsers] = useState();
+  const [lecturers, setLecturers] = useState([]);
+
   const usersCollectionRef = collection(db, "users");
 
-  useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-    getUsers();
-  });
+  const q = query(usersCollectionRef, where("UID", "==", auth.currentUser.uid));
 
-  const handleSubmit = () => {
-    users.map((user) => {
-      console.log(user.group, user.rights);
-    });
+  const getLecturers = async () => {
+    const data = await getDocs(usersCollectionRef);
+    setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+
+    const user = await getDocs(q);
+    const userRef = user.docs.pop().data();
+    const group = userRef.group;
+
+    const lecturersCollectionRef = collection(
+      db,
+      "groups/" + group + "/Lecturers"
+    );
+
+    const lec = await getDocs(lecturersCollectionRef);
+    setLecturers(lec.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
+
+  useEffect(() => {
+    getLecturers();
+  });
 
   return (
     <Grid
@@ -36,20 +46,11 @@ function Lecturers() {
     >
       <Grid item>
         <Container>
-          <Button
-            type={"submit"}
-            color={"primary"}
-            variant={"contained"}
-            endIcon={<KeyboardArrowRight />}
-            fullWidth
-            onClick={handleSubmit}
-          >
-            Paste Data
-          </Button>
-          <LecturerCard />
-          <LecturerCard />
-          <LecturerCard />
-          <LecturerCard />
+          {lecturers.map((lecturer) => (
+            <div key={lecturer.id}>
+              <LecturerCard lecturer={lecturer} />
+            </div>
+          ))}
         </Container>
       </Grid>
     </Grid>

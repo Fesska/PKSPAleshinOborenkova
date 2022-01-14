@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Container, Typography } from "@mui/material";
 
-function LecturerCard() {
+function SessionCard({ exam }) {
   return (
     <Container style={{ marginTop: `10px` }} fixed={true}>
       <Card
@@ -9,17 +9,17 @@ function LecturerCard() {
         style={{ marginTop: `5px`, backgroundColor: `#e5e5e5`, width: 400 }}
       >
         <Typography align={"center"} variant={"body1"} gutterBottom>
-          Гадасин Д. В.
+          {exam.dateExam}
         </Typography>
         <Typography align={"center"} variant={"body1"} gutterBottom>
-          Мультимедийные информационные системы
+          {exam.timeExam}
         </Typography>
-        <Typography align={"center"} variant={"body2"}>
-          (Лекции)
+        <Typography align={"center"} variant={"body1"}>
+          {exam.subject}
         </Typography>
       </Card>
     </Container>
   );
 }
 
-export default LecturerCard;
+export default SessionCard;

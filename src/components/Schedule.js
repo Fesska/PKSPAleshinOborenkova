@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Grid, Typography } from "@mui/material";
-import ScheduleCard from "./ScheduleCard";
+import ScheduleCard from "./cards/ScheduleCard";
 
 function Schedule() {
   return (
