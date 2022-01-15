@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
@@ -57,9 +57,7 @@ function Main() {
     }
   };
 
-  useEffect(() => {
-    getRights();
-  });
+  getRights();
 
   return (
     <React.StrictMode>

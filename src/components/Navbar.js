@@ -124,13 +124,14 @@ function Navbar() {
           ))}
         </List>
         <Button
+          style={{ width: drawerWidth - 30, marginLeft: 15 }}
           type={"submit"}
           color={"primary"}
           variant={"contained"}
           endIcon={<KeyboardArrowRight />}
           onClick={() => {
-            auth.signOut();
             setUserRights(false);
+            auth.signOut();
           }}
           fullWidth
         >

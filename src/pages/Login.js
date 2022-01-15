@@ -97,14 +97,14 @@ function Login() {
             component="h2"
             gutterBottom
           >
-            Login
+            Войти в систему
           </Typography>
 
           <form noValidate autoComplete={"off"} onSubmit={handleSubmit}>
             <TextField
               onChange={(e) => setLogin(e.target.value)}
               className={classes.field}
-              label={"E-mail"}
+              label={"Адрес электронной почты"}
               variant={"outlined"}
               color={"secondary"}
               fullWidth
@@ -114,9 +114,10 @@ function Login() {
             <TextField
               onChange={(e) => setPassword(e.target.value)}
               className={classes.field}
-              label={"Password"}
+              label={"Пароль"}
               variant={"outlined"}
               color={"secondary"}
+              type={"password"}
               fullWidth
               required
               error={passwordErr}
@@ -129,7 +130,7 @@ function Login() {
                 endIcon={<KeyboardArrowRight />}
                 fullWidth
               >
-                Submit
+                Войти
               </Button>
             </FormControl>
           </form>

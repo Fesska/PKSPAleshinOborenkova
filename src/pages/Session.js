@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import SessionCard from "../components/cards/SessionCard";
 import { Container, Grid } from "@mui/material";
 import context from "../index";
@@ -27,10 +27,7 @@ function Session() {
     const lec = await getDocs(sessionCollectionRef);
     setExams(lec.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
-
-  useEffect(() => {
-    getExams();
-  });
+  getExams();
 
   return (
     <Grid

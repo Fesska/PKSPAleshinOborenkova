@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Container, Grid } from "@mui/material";
 import LecturerCard from "../components/cards/LecturerCard";
 import { collection, getDocs, query, where } from "firebase/firestore";
@@ -31,9 +31,7 @@ function Lecturers() {
     setLecturers(lec.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
 
-  useEffect(() => {
-    getLecturers();
-  });
+  getLecturers();
 
   return (
     <Grid
