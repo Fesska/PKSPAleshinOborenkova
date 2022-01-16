@@ -3,31 +3,41 @@ import SessionCard from "../components/cards/SessionCard";
 import { Container, Grid } from "@mui/material";
 import context from "../index";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function Session() {
   const { db, auth } = useContext(context);
+  const [userAuth] = useAuthState(auth);
 
   const [users, setUsers] = useState();
   const [exams, setExams] = useState([]);
 
-  const usersCollectionRef = collection(db, "users");
+  if (userAuth) {
+    const getExams = async () => {
+      const usersCollectionRef = collection(db, "users");
 
-  const q = query(usersCollectionRef, where("UID", "==", auth.currentUser.uid));
+      const q = query(
+        usersCollectionRef,
+        where("UID", "==", auth.currentUser.uid)
+      );
 
-  const getExams = async () => {
-    const data = await getDocs(usersCollectionRef);
-    setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const data = await getDocs(usersCollectionRef);
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 
-    const user = await getDocs(q);
-    const userRef = user.docs.pop().data();
-    const group = userRef.group;
+      const user = await getDocs(q);
+      const userRef = user.docs.pop().data();
+      const group = userRef.group;
 
-    const sessionCollectionRef = collection(db, "groups/" + group + "/Session");
+      const sessionCollectionRef = collection(
+        db,
+        "groups/" + group + "/Session"
+      );
 
-    const lec = await getDocs(sessionCollectionRef);
-    setExams(lec.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  };
-  getExams();
+      const lec = await getDocs(sessionCollectionRef);
+      setExams(lec.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    getExams();
+  }
 
   return (
     <Grid

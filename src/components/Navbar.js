@@ -8,6 +8,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import {
   ADD_ROUTE,
   LECTURERS_ROUTE,
+  LOGIN_ROUTE,
   SCHEDULE_ROUTE,
   SESSION_ROUTE,
 } from "../utils/consts";
@@ -105,8 +106,14 @@ function Navbar() {
       classes={{ paper: classes.drawerPaper }}
     >
       <div>
+        <div>
+          <img
+            src={"/logo.svg"}
+            style={{ width: 220, height: 220, marginLeft: 10 }}
+          />
+        </div>
         <Typography variant={"h5"} className={classes.title}>
-          Schedule App
+          Расписание
         </Typography>
         <List>
           {menuItems.map((item) => (
@@ -130,8 +137,9 @@ function Navbar() {
           variant={"contained"}
           endIcon={<KeyboardArrowRight />}
           onClick={() => {
-            setUserRights(false);
             auth.signOut();
+            setUserRights(false);
+            history.push(LOGIN_ROUTE);
           }}
           fullWidth
         >

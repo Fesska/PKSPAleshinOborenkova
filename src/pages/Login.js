@@ -50,32 +50,36 @@ function Login() {
       setPasswordErr(true);
     }
 
-    signInWithEmailAndPassword(auth, login, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
+    if (login && password) {
+      signInWithEmailAndPassword(auth, login, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
 
-        // Запрашиваем пользователя из коллекции users по совпадению поля UID
-        const q = query(
-          usersCollectionRef,
-          where("UID", "==", auth.currentUser.uid)
-        );
+          // Запрашиваем пользователя из коллекции users по совпадению поля UID
+          const q = query(
+            usersCollectionRef,
+            where("UID", "==", auth.currentUser.uid)
+          );
 
-        // Запрашиваем права пользователя
-        const getRights = async () => {
-          const data = await getDocs(q);
-          const userRef = data.docs.pop().data();
-          const rights = userRef.rights;
+          // Запрашиваем права пользователя
+          const getRights = async () => {
+            const data = await getDocs(q);
+            const userRef = data.docs.pop().data();
+            const rights = userRef.rights;
 
-          if (rights === "admin") setUserRights(true);
-        };
+            if (rights === "admin") setUserRights(true);
+          };
 
-        getRights();
-      })
-      .catch((error) => {
-        console.log(error.code);
-        console.log(error.message);
-      });
+          getRights();
+        })
+        .catch((error) => {
+          setLoginErr(true);
+          setPasswordErr(true);
+          console.log(error.code);
+          console.log(error.message);
+        });
+    }
   };
 
   return (

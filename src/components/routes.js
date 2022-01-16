@@ -7,10 +7,10 @@ import {
   ADD_ROUTE,
 } from "../utils/consts";
 import Login from "../pages/Login";
-import Home from "../pages/Home";
 import Session from "../pages/Session";
 import Lecturers from "../pages/Lecturers";
 import AddPage from "../pages/AddPage";
+import Schedule from "../pages/Schedule";
 
 export const publicRoutes = [
   {
@@ -22,7 +22,7 @@ export const publicRoutes = [
 export const privateRoutes = [
   {
     path: SCHEDULE_ROUTE,
-    Component: Home,
+    Component: Schedule,
   },
   {
     path: SESSION_ROUTE,
@@ -37,7 +37,7 @@ export const privateRoutes = [
 export const protectedRoutes = [
   {
     path: SCHEDULE_ROUTE,
-    Component: Home,
+    Component: Schedule,
   },
   {
     path: SESSION_ROUTE,

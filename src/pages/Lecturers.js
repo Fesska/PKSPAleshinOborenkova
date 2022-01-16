@@ -3,35 +3,41 @@ import { Container, Grid } from "@mui/material";
 import LecturerCard from "../components/cards/LecturerCard";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import context from "../index";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function Lecturers() {
   const { db, auth } = useContext(context);
+  const [userAuth] = useAuthState(auth);
 
   const [users, setUsers] = useState();
   const [lecturers, setLecturers] = useState([]);
 
-  const usersCollectionRef = collection(db, "users");
+  if (userAuth) {
+    const getLecturers = async () => {
+      const usersCollectionRef = collection(db, "users");
 
-  const q = query(usersCollectionRef, where("UID", "==", auth.currentUser.uid));
+      const q = query(
+        usersCollectionRef,
+        where("UID", "==", auth.currentUser.uid)
+      );
+      const data = await getDocs(usersCollectionRef);
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 
-  const getLecturers = async () => {
-    const data = await getDocs(usersCollectionRef);
-    setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const user = await getDocs(q);
+      const userRef = user.docs.pop().data();
+      const group = userRef.group;
 
-    const user = await getDocs(q);
-    const userRef = user.docs.pop().data();
-    const group = userRef.group;
+      const lecturersCollectionRef = collection(
+        db,
+        "groups/" + group + "/Lecturers"
+      );
 
-    const lecturersCollectionRef = collection(
-      db,
-      "groups/" + group + "/Lecturers"
-    );
+      const lec = await getDocs(lecturersCollectionRef);
+      setLecturers(lec.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
 
-    const lec = await getDocs(lecturersCollectionRef);
-    setLecturers(lec.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  };
-
-  getLecturers();
+    getLecturers();
+  }
 
   return (
     <Grid

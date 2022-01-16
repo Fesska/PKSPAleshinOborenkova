@@ -7,11 +7,11 @@ import {
   Switch,
   Typography,
 } from "@mui/material";
-import ScheduleCard from "./cards/ScheduleCard";
+import ScheduleCard from "../components/cards/ScheduleCard";
 import context from "../index";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import PopupSchedule from "./forms/popupSchedule";
+import PopupSchedule from "../components/forms/popupSchedule";
 
 function Schedule() {
   const { db, auth } = useContext(context);
@@ -22,9 +22,6 @@ function Schedule() {
   const [schedule, setSchedule] = useState([]);
   const [openPopup, setOpenPopup] = useState(false);
   const [currentLecture, setCurrentLecture] = useState();
-
-  const usersCollectionRef = collection(db, "users");
-  const q = query(usersCollectionRef, where("UID", "==", auth.currentUser.uid));
 
   const handleClick = () => {
     setOpenPopup(true);
@@ -66,6 +63,12 @@ function Schedule() {
 
   if (userAuth) {
     const getSchedule = async () => {
+      const usersCollectionRef = collection(db, "users");
+      const q = query(
+        usersCollectionRef,
+        where("UID", "==", auth.currentUser.uid)
+      );
+
       const data = await getDocs(usersCollectionRef);
       setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 
